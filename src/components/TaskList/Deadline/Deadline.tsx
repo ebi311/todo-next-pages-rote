@@ -22,7 +22,7 @@ export const Deadline: React.FC<Props> = ({ deadline }) => {
 
   return (
     <p className="flex gap-2">
-      <label>期限:</label>
+      <label>期日:</label>
       <time dateTime={dateTime} data-testid="deadline" className={className}>
         {deadlineString}
       </time>
