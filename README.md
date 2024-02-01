@@ -7,7 +7,8 @@
 Next.js の他に下記の要素があります。
 
 - TypeScript 　による型安全な開発
-- Tailwind CSS でのスタイリング
+- Tailwind CSS + daisyUI でのスタイリング
+  - [daisyUI — Tailwind CSS Components ( version 4 update is here )](https://daisyui.com/)
 - ESLint, Prettier による Static Test
 - Jest による Component Unit Test
 - Storybook 　による Component カタログ
