@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "kisstkondoros.vscode-codemetrics",
+    "orta.vscode-jest",
+    "christian-kohler.path-intellisense",
+    "bradlc.vscode-tailwindcss",
+    "hediet.vscode-drawio"
+  ]
+}
