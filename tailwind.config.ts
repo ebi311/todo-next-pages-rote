@@ -12,6 +12,7 @@ const config: Config = {
       'priority-high': '#f43f5e',
       'priority-medium': '#eab308',
       'priority-low': '#64748b',
+      'over-deadline': '#f43f5e',
     },
   },
   plugins: [require('daisyui')],

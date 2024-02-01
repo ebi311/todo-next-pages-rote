@@ -36,6 +36,8 @@ export const TaskSchema = z.object({
   status: z.enum(TASK_STATUS),
   /** タスクの優先度 */
   priority: z.enum(TASK_PRIORITY),
+  /** 期限 */
+  deadline: z.date().optional(),
 });
 
 /** タスク 型 */
