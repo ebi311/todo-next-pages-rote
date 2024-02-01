@@ -5,6 +5,7 @@ import { Layout } from './Layout';
 export default {
   title: 'components/Layout',
   component: Layout,
+  tags: ['autodocs'],
 } as Meta<typeof Layout>;
 
 type Story = StoryObj<typeof Layout>;

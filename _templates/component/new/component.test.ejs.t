@@ -6,7 +6,12 @@ import { ComponentProps } from 'react';
 import { <%= name %> } from './<%= name %>';
 
 const render = (props: ComponentProps<typeof <%= name %>>) => {
-  return _render(<<%= name %> {...props} />);
+  const {rerender, _rest} = _render(<<%= name %> {...props} />);
+  return {
+    ...rest,
+    rerender: (newProps: Partial<typeof props>) =>
+      rerender(<<%= name %> {...props} {...newProps} />),
+  };
 };
 
 test('renders', () => {
