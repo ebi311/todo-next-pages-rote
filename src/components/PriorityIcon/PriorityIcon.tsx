@@ -12,7 +12,7 @@ const priorityValues: Record<
   { className: string; icon: IconType }
 > = {
   high: {
-    className: 'text-priority-high',
+    className: 'text-priority-high rotate-45',
     icon: ImArrowUp,
   },
   medium: {
@@ -20,7 +20,7 @@ const priorityValues: Record<
     icon: ImArrowRight,
   },
   low: {
-    className: 'text-priority-low',
+    className: 'text-priority-low rotate-[315deg]',
     icon: ImArrowDown,
   },
 };
@@ -28,8 +28,8 @@ const priorityValues: Record<
 export const PriorityIcon: React.FC<Props> = ({ priority }) => {
   const { className, icon: Icon } = priorityValues[priority];
   return (
-    <div className={className} role="img" aria-label="priority-icon">
-      {<Icon />}
+    <div role="img" aria-label="priority-icon">
+      <Icon className={className} />
     </div>
   );
 };
