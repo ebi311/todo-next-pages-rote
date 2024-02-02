@@ -21,7 +21,7 @@ const className = classNames(
   'm-2',
 );
 
-export const TaskRow: React.FC<Props> = ({ task }) => {
+const taskRow: React.FC<Props> = ({ task }) => {
   return (
     <li className={className} role="row" aria-label="task-list-row">
       <div role="cell" className="row-span-2 flex items-center content-center">
@@ -35,3 +35,5 @@ export const TaskRow: React.FC<Props> = ({ task }) => {
     </li>
   );
 };
+
+export const TaskRow = React.memo(taskRow);
