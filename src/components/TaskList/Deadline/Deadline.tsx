@@ -1,11 +1,12 @@
 import isSaveOrAfter from 'dayjs/plugin/isSameOrAfter';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
+import { Task } from '@/models/task';
 
 dayjs.extend(isSaveOrAfter);
 
 type Props = {
-  deadline: Date;
+  deadline: Task['deadline'];
 };
 
 export const Deadline: React.FC<Props> = ({ deadline }) => {
@@ -19,6 +20,8 @@ export const Deadline: React.FC<Props> = ({ deadline }) => {
     }),
     [deadline],
   );
+
+  if (!deadline) return null;
 
   return (
     <p className="flex gap-2">
