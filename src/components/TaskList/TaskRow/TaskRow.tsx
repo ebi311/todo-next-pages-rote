@@ -18,11 +18,12 @@ const className = classNames(
   'border-b',
   'border-base-300',
   'pb-2',
+  'm-2',
 );
 
 export const TaskRow: React.FC<Props> = ({ task }) => {
   return (
-    <div className={className}>
+    <li className={className} role="row" aria-label="task-list-row">
       <div role="cell" className="row-span-2 flex items-center content-center">
         <TaskStatusCheckbox taskStatus={task.status} />
       </div>
@@ -31,6 +32,6 @@ export const TaskRow: React.FC<Props> = ({ task }) => {
       <div role="cell" className="col-span-2">
         <TaskBody taskBody={task.body} />
       </div>
-    </div>
+    </li>
   );
 };
