@@ -29,7 +29,7 @@ export const TaskSchema = z.object({
   /** タスクID */
   id: z.string(),
   /** タスク名 */
-  name: z.string().min(1).max(64),
+  title: z.string().min(1).max(64),
   /** タスク内容 */
   body: z.string().max(1000),
   /** タスクのステータス */
