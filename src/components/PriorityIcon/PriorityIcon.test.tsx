@@ -15,10 +15,10 @@ test('renders', () => {
   const { rerender } = render({
     priority: 'high',
   });
-  const icon = screen.getByRole('img', { name: 'priority-icon' });
-  expect(icon).toHaveClass('text-priority-high');
+  const iconHolder = screen.getByRole('img', { name: 'priority-icon' });
+  expect(iconHolder.firstChild).toHaveClass('text-priority-high');
   rerender({ priority: 'low' });
-  expect(icon).toHaveClass('text-priority-low');
+  expect(iconHolder.firstChild).toHaveClass('text-priority-low');
   rerender({ priority: 'medium' });
-  expect(icon).toHaveClass('text-priority-medium');
+  expect(iconHolder.firstChild).toHaveClass('text-priority-medium');
 });
