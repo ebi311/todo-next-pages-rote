@@ -7,11 +7,12 @@ type Props = {
 } & PropsWithChildren;
 
 const containerClassName = classNames(
-  'w-screen',
+  'mx-auto',
+  'max-w-screen-md',
   'h-screen',
   'flex',
   'flex-col',
-  'bg-base-300',
+  'bg-base-100',
 );
 
 const navbarClassName = classNames(
@@ -33,7 +34,7 @@ export const Layout: React.FC<Props> = (props) => {
           {props.pageTitle}
         </h1>
       </div>
-      <main>{props.children}</main>
+      <main className="p-4">{props.children}</main>
     </div>
   );
 };
