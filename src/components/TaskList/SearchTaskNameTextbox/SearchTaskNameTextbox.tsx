@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useCallback, useRef } from 'react';
 
 type Props = {
-  defaultSearchString: string;
+  searchString: string;
   search: (searchString: string) => Promise<void>;
 };
 
 export const SearchTaskNameTextbox: React.FC<Props> = ({
-  defaultSearchString,
+  searchString,
   search,
 }) => {
   let timer = useRef(-1);
@@ -27,7 +27,7 @@ export const SearchTaskNameTextbox: React.FC<Props> = ({
     <input
       type="text"
       aria-label="search-task-name"
-      defaultValue={defaultSearchString}
+      value={searchString}
       onChange={onChange}
       className="input input-bordered"
       placeholder="Search task name..."

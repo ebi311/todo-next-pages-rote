@@ -16,7 +16,7 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 test('renders', async () => {
   const search = jest.fn();
   render({
-    defaultSearchString: 'たすく',
+    searchString: 'たすく',
     search,
   });
   const textBox = screen.getByRole('textbox', { name: 'search-task-name' });
@@ -26,7 +26,7 @@ test('renders', async () => {
 test('onChange', async () => {
   const search = jest.fn();
   render({
-    defaultSearchString: 'たすく',
+    searchString: 'たすく',
     search,
   });
   const textBox = screen.getByRole('textbox', { name: 'search-task-name' });
