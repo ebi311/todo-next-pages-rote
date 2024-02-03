@@ -1,3 +1,4 @@
+import { CheckBox } from '@/components/CheckBox';
 import React from 'react';
 
 type Props = {
@@ -6,14 +7,10 @@ type Props = {
 
 export const HighPriorityCheckbox: React.FC<Props> = ({ onlyHighPriority }) => {
   return (
-    <label className="flex items-center gap-2">
-      <input
-        type="checkbox"
-        checked={onlyHighPriority}
-        aria-label="high-priority"
-        className="checkbox"
-      />
-      <span>優先度 &quot;高&quot; のみ</span>
-    </label>
+    <CheckBox
+      label='優先度 "高" のみ'
+      checked={onlyHighPriority}
+      aria-label="high-priority"
+    />
   );
 };

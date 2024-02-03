@@ -12,6 +12,6 @@ type Story = StoryObj<typeof HighPriorityCheckbox>;
 
 export const Default: Story = {
   args: {
-    onlyHighPriority: false,
+    onlyHighPriority: true,
   },
 };
