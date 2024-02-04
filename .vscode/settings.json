@@ -4,7 +4,11 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "codemetrics.luaconfiguration.ReturnStatement": 0,
   "codemetrics.nodeconfiguration.ReturnStatement": 0,
-  "codemetrics.basics.CodeLensHiddenUnder": 1,
+  "codemetrics.basics.CodeLensHiddenUnder": 0,
+  "codemetrics.basics.Exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
   "codemetrics.basics.ComplexityLevelExtremeDescription": "💀💀💀We need to improve it urgently.",
   "codemetrics.basics.ComplexityLevelHighDescription": "🥵Let's improve！",
   "codemetrics.basics.ComplexityLevelLowDescription": "👍Good job!",

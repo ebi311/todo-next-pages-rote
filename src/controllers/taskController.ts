@@ -20,18 +20,61 @@ const jsonReviver = (_key: string, value: unknown) => {
   return dayjs(value).toDate();
 };
 
-let globalTasks: Task[] | null = null;
+const loadTasks = async () => {};
 
-export const getTasks = async () => {
-  if (!!globalTasks) return globalTasks;
-  const data = await fs.readFile(path.join(process.cwd(), 'data.json'));
-  const sourceData = JSON.parse(data.toString(), jsonReviver);
-  if (!Array.isArray(sourceData.tasks)) {
-    throw new Error('No tasks found');
+export class TaskList {
+  private tasks: Task[] = [];
+  private static instance: TaskList;
+
+  private constructor(task?: Task[]) {
+    this.tasks = task || [];
   }
-  const tasks = (sourceData.tasks as Task[]).map((task: unknown) =>
-    TaskSchema.parse(task),
-  );
-  globalTasks = tasks;
-  return tasks;
-};
+
+  public static async getInstance() {
+    if (TaskList.instance) return TaskList.instance;
+    TaskList.instance = new TaskList();
+    await TaskList.instance.load();
+    return TaskList.instance;
+  }
+
+  async load() {
+    const data = await fs.readFile(path.join(process.cwd(), 'data.json'));
+    const sourceData = JSON.parse(data.toString(), jsonReviver);
+    if (!Array.isArray(sourceData.tasks)) {
+      throw new Error('No tasks found');
+    }
+    this.tasks = (sourceData.tasks as Task[]).map((task: unknown) =>
+      TaskSchema.parse(task),
+    );
+  }
+
+  public filterTitle(partialTitle?: string) {
+    if (!partialTitle) return new TaskList(this.tasks);
+    const tasks = this.tasks.filter((task) =>
+      task.title.includes(partialTitle),
+    );
+    return new TaskList(tasks);
+  }
+
+  public filterPriority(highPriorityOnly?: boolean) {
+    if (!highPriorityOnly) return new TaskList(this.tasks);
+    const tasks = this.tasks.filter((task) => task.priority === 'high');
+    return new TaskList(tasks);
+  }
+
+  public filterStatus(includeDone?: boolean) {
+    if (includeDone === true) return new TaskList(this.tasks);
+    const tasks = this.tasks.filter((task) => task.status !== 'done');
+    return new TaskList(tasks);
+  }
+
+  public queryTasks(conditions: {
+    partialTitle?: string;
+    highPriorityOnly?: boolean;
+    includeDone?: boolean;
+  }) {
+    return this.filterPriority(conditions.highPriorityOnly)
+      .filterStatus(conditions.includeDone)
+      .filterTitle(conditions.partialTitle).tasks;
+  }
+}

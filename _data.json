@@ -20,9 +20,25 @@
       "id": "3",
       "title": "請求書を支払う",
       "deadline": "2021-04-03T00:00:00+09:00",
-      "priority": "high",
+      "priority": "medium",
       "body": "振込先は○○銀行",
       "status": "todo"
+    },
+    {
+      "id": "4",
+      "title": "プレゼン資料を作成",
+      "deadline": "2021-04-04T00:00:00+09:00",
+      "priority": "high",
+      "body": "○○社に提出",
+      "status": "todo"
+    },
+    {
+      "id": "5",
+      "title": "スーパーに行く",
+      "deadline": "2021-04-05T00:00:00+09:00",
+      "priority": "medium",
+      "body": "買い物をする",
+      "status": "done"
     }
   ]
 }

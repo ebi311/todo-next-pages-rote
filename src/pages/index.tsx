@@ -1,32 +1,58 @@
 import { Layout } from '@/components/Layout';
 import { Conditions } from '@/components/TaskList/Conditions';
 import { TaskList } from '@/components/TaskList/TaskList';
-import { getTasks } from '@/controllers/taskController';
+import { TaskList as TaskListClass } from '@/controllers/taskController';
 import { Task } from '@/models/task';
+import {
+  parseQueryValueBoolean,
+  parseQueryValueToString,
+} from '@/utils/parseQueryValue';
 import { GetServerSideProps, NextPage } from 'next';
+import { ParsedUrlQuery } from 'querystring';
+
+type QueryParams = {
+  highPriorityOnly: boolean;
+  includeDone: boolean;
+  searchText: string;
+};
 
 type Props = {
   tasks: Task[];
+  conditions: QueryParams;
 };
 
-const Page: NextPage<Props> = ({ tasks }) => {
+const Page: NextPage<Props> = ({ tasks, conditions }) => {
   return (
     <Layout pageTitle="タスク一覧">
       <Conditions
-        highPriority={true}
-        includeDone={true}
-        searchText="検索文字列"
+        highPriority={conditions.highPriorityOnly}
+        includeDone={conditions.includeDone}
+        searchText={conditions.searchText}
       />
       <TaskList tasks={tasks} />
     </Layout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const tasks = await getTasks();
+const parseQueryToConditions = (query: ParsedUrlQuery): QueryParams => {
+  return {
+    highPriorityOnly: parseQueryValueBoolean(query.highPriorityOnly, false),
+    includeDone: parseQueryValueBoolean(query.includeDone, false),
+    searchText: parseQueryValueToString(query.searchText, ''),
+  };
+};
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context,
+) => {
+  const { query } = context;
+  const conditions = parseQueryToConditions(query);
+  const taskList = await TaskListClass.getInstance();
+  const tasks = taskList.queryTasks(conditions);
   return {
     props: {
       tasks,
+      conditions,
     },
   };
 };
