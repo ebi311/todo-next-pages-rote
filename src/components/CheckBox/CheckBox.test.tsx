@@ -3,7 +3,7 @@ import { ComponentProps } from 'react';
 import { CheckBox } from './CheckBox';
 
 const render = (props: ComponentProps<typeof CheckBox>) => {
-  const {rerender, ...rest} = _render(<CheckBox {...props} />);
+  const { rerender, ...rest } = _render(<CheckBox {...props} />);
   return {
     ...rest,
     rerender: (newProps: Partial<typeof props>) =>
@@ -12,6 +12,11 @@ const render = (props: ComponentProps<typeof CheckBox>) => {
 };
 
 test('renders', () => {
-  render({});
-  expect(screen.getByTestId('CheckBox-container')).toBeInTheDocument();
+  render({
+    label: 'label',
+    className: 'additional-class',
+  });
+  const checkbox = screen.getByLabelText('label');
+  expect(checkbox).toBeInTheDocument();
+  expect(checkbox).toHaveClass('additional-class', 'checkbox');
 });

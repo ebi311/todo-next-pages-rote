@@ -11,5 +11,14 @@ export default {
 type Story = StoryObj<typeof CheckBox>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    label: 'ラベル',
+  },
+};
+
+export const Primary: Story = {
+  args: {
+    label: 'ラベル',
+    className: 'checkbox-primary',
+  },
 };

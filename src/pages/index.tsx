@@ -10,10 +10,10 @@ import {
 import { GetServerSideProps, NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 
-type QueryParams = {
+export type QueryParams = {
   highPriorityOnly: boolean;
   includeDone: boolean;
-  searchText: string;
+  partialTitle: string;
 };
 
 type Props = {
@@ -27,7 +27,7 @@ const Page: NextPage<Props> = ({ tasks, conditions }) => {
       <Conditions
         highPriority={conditions.highPriorityOnly}
         includeDone={conditions.includeDone}
-        searchText={conditions.searchText}
+        searchText={conditions.partialTitle}
       />
       <TaskList tasks={tasks} />
     </Layout>
@@ -38,7 +38,7 @@ const parseQueryToConditions = (query: ParsedUrlQuery): QueryParams => {
   return {
     highPriorityOnly: parseQueryValueBoolean(query.highPriorityOnly, false),
     includeDone: parseQueryValueBoolean(query.includeDone, false),
-    searchText: parseQueryValueToString(query.searchText, ''),
+    partialTitle: parseQueryValueToString(query.partialTitle, ''),
   };
 };
 
@@ -48,7 +48,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   const { query } = context;
   const conditions = parseQueryToConditions(query);
   const taskList = await TaskListClass.getInstance();
+  console.log(conditions);
   const tasks = taskList.queryTasks(conditions);
+  console.log(tasks);
   return {
     props: {
       tasks,

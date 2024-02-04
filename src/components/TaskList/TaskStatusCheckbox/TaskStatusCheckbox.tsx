@@ -16,6 +16,7 @@ export const TaskStatusCheckbox: React.FC<Props> = (props) => {
       checked={props.taskStatus === 'done'}
       aria-label="todo-status"
       className={className}
+      readOnly
     />
   );
 };

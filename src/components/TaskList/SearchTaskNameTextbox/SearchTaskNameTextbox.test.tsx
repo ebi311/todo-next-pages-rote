@@ -14,36 +14,36 @@ const render = (props: ComponentProps<typeof SearchTaskNameTextbox>) => {
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 test('renders', async () => {
-  const search = jest.fn();
+  const onChange = jest.fn();
   render({
-    searchString: 'たすく',
-    search,
+    defaultSearchTitle: 'たすく',
+    onChange,
   });
   const textBox = screen.getByRole('textbox', { name: 'search-task-name' });
   expect(textBox).toHaveValue('たすく');
 });
 
 test('onChange', async () => {
-  const search = jest.fn();
+  const onChange = jest.fn();
   render({
-    searchString: 'たすく',
-    search,
+    defaultSearchTitle: 'たすく',
+    onChange,
   });
   const textBox = screen.getByRole('textbox', { name: 'search-task-name' });
   // テキストを変更した直後には、search が呼ばれない
   fireEvent.change(textBox, { target: { value: 'たすく1' } });
-  expect(search).not.toHaveBeenCalled();
+  expect(onChange).not.toHaveBeenCalled();
   // 500ms 後に search が呼ばれる
   await sleep(500);
-  expect(search).toHaveBeenCalledWith('たすく1');
+  expect(onChange).toHaveBeenCalledWith({ partialTitle: 'たすく1' });
   // 500ms 以内にテキストを変更した場合、search が呼ばれない
-  search.mockClear();
+  onChange.mockClear();
   fireEvent.change(textBox, { target: { value: 'たすく2' } });
   await sleep(100);
-  expect(search).not.toHaveBeenCalled();
+  expect(onChange).not.toHaveBeenCalled();
   fireEvent.change(textBox, { target: { value: 'たすく3' } });
   await sleep(400);
-  expect(search).not.toHaveBeenCalled();
+  expect(onChange).not.toHaveBeenCalled();
   await sleep(100);
-  expect(search).toHaveBeenCalledWith('たすく3');
+  expect(onChange).toHaveBeenCalledWith({ partialTitle: 'たすく3' });
 });
