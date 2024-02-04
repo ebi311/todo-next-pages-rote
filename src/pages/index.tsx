@@ -1,6 +1,7 @@
 import { Layout } from '@/components/Layout';
 import { Conditions } from '@/components/TaskList/Conditions';
 import { TaskList } from '@/components/TaskList/TaskList';
+import { getTasks } from '@/controllers/taskController';
 import { Task } from '@/models/task';
 import { GetServerSideProps, NextPage } from 'next';
 
@@ -22,34 +23,10 @@ const Page: NextPage<Props> = ({ tasks }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const tasks = await getTasks();
   return {
     props: {
-      tasks: [
-        {
-          id: '1',
-          title: '牛乳を買う',
-          deadline: new Date('2021-04-01'),
-          priority: 'high',
-          body: '明日までに買う',
-          status: 'todo',
-        },
-        {
-          id: '2',
-          title: '掃除をする',
-          deadline: new Date('2021-04-02'),
-          priority: 'low',
-          body: '部屋を綺麗にする',
-          status: 'done',
-        },
-        {
-          id: '3',
-          title: '請求書を支払う',
-          deadline: new Date('2021-04-03'),
-          priority: 'high',
-          body: '振込先は○○銀行',
-          status: 'todo',
-        },
-      ],
+      tasks,
     },
   };
 };

@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "牛乳を買う",
+      "deadline": "2021-04-01T00:00:00+09:00",
+      "priority": "high",
+      "body": "明日までに買う",
+      "status": "todo"
+    },
+    {
+      "id": "2",
+      "title": "掃除をする",
+      "deadline": "2021-04-02T00:00:00+09:00",
+      "priority": "low",
+      "body": "部屋を綺麗にする",
+      "status": "done"
+    },
+    {
+      "id": "3",
+      "title": "請求書を支払う",
+      "deadline": "2021-04-03T00:00:00+09:00",
+      "priority": "high",
+      "body": "振込先は○○銀行",
+      "status": "todo"
+    }
+  ]
+}
