@@ -5,6 +5,7 @@ import { Deadline } from '../Deadline';
 import { TaskBody } from '../TaskBody';
 import { Task } from '@/models/task';
 import classNames from 'classnames';
+import { PriorityIcon } from '@/components/PriorityIcon';
 
 type Props = {
   task: Task;
@@ -12,7 +13,8 @@ type Props = {
 
 const className = classNames(
   'grid',
-  'grid-cols-[auto,1fr,auto]',
+  'grid-cols-[auto,auto,1fr,auto]',
+  'items-center',
   'gap-x-4',
   'gap-y-2',
   'border-b',
@@ -27,9 +29,10 @@ const taskRow: React.FC<Props> = ({ task }) => {
       <div role="cell" className="row-span-2 flex items-center content-center">
         <TaskStatusCheckbox taskStatus={task.status} />
       </div>
+      <PriorityIcon priority={task.priority} />
       <TaskTitle taskTitle={task.title} />
       <Deadline deadline={task.deadline} />
-      <div role="cell" className="col-span-2">
+      <div role="cell" className="col-span-3">
         <TaskBody taskBody={task.body} />
       </div>
     </li>
