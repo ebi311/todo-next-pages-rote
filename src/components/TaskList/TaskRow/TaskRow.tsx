@@ -1,11 +1,11 @@
-import React from 'react';
-import { TaskStatusCheckbox } from '../TaskStatusCheckbox';
-import { TaskTitle } from '../TaskTitle';
-import { Deadline } from '../Deadline';
-import { TaskBody } from '../TaskBody';
+import { PriorityIcon } from '@/components/PriorityIcon';
 import { Task } from '@/models/task';
 import classNames from 'classnames';
-import { PriorityIcon } from '@/components/PriorityIcon';
+import React from 'react';
+import { Deadline } from '../Deadline';
+import { TaskBody } from '../TaskBody';
+import { TaskStatusCheckbox } from '../TaskStatusCheckbox';
+import { TaskTitle } from '../TaskTitle';
 
 type Props = {
   task: Task;
