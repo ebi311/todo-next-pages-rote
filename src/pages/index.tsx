@@ -48,9 +48,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   const { query } = context;
   const conditions = parseQueryToConditions(query);
   const taskList = await TaskListClass.getInstance();
-  console.log(conditions);
   const tasks = taskList.queryTasks(conditions);
-  console.log(tasks);
   return {
     props: {
       tasks,
