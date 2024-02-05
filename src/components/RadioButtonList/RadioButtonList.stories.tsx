@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import { RadioButtonList, RadioButtonListHook } from './RadioButtonList';
 import { useForm } from 'react-hook-form';
+import { MdBuild, MdHome } from 'react-icons/md';
 
 export default {
   title: 'components/RadioButtonList',
@@ -34,6 +35,18 @@ export const WithTheme: Story = {
     options: [
       { label: 'Option 1', value: '1' },
       { label: 'Option 2', value: '2' },
+    ],
+    selected: '1',
+    name: 'radio',
+    className: 'radio-primary',
+  },
+};
+
+export const ElementLabel: Story = {
+  args: {
+    options: [
+      { label: <MdHome />, value: '1' },
+      { label: <MdBuild />, value: '2' },
     ],
     selected: '1',
     name: 'radio',

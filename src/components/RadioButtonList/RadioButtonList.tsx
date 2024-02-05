@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Control, Path, useController } from 'react-hook-form';
 
 type Props = {
-  options: { label: string; value: string }[];
+  options: { label: string | JSX.Element; value: string }[];
   selected: string;
   onChange?: (value: string) => void;
   name: string;
