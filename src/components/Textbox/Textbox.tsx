@@ -17,7 +17,7 @@ type Props<T extends Record<string, unknown>> = {
   };
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
-export const Textbox = <T extends Record<string, unknown> = { dummy: string }>(
+export const Textbox = <T extends Record<string, unknown> = { '': unknown }>(
   props: Props<T>,
 ) => {
   const {
