@@ -15,7 +15,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <div data-theme="light" className="bg-base-100">
+      <div data-theme="cw" className="bg-base-100">
         <Story />
       </div>
     ),
