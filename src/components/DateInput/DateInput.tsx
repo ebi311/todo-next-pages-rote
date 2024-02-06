@@ -1,19 +1,19 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useId } from 'react';
 import DatePicker from 'react-datepicker';
 import { Control, Path, useController } from 'react-hook-form';
 import { MdCalendarMonth } from 'react-icons/md';
+import { Label, LabelProps } from '../Label';
 
-type Props = {
-  label: string;
-} & React.ComponentProps<typeof DatePicker>;
+type Props = LabelProps & React.ComponentProps<typeof DatePicker>;
 
-const dateInput = (props: Props) => {
-  const { label, ...rest } = props;
+const FcDateInput: React.FC<Props> = (props) => {
+  const { label, supplementalText, ...rest } = props;
+  const id = useId();
   return (
-    <label className="flex flex-col gap-0 items-start label">
-      <span className="label-text">{label}</span>
+    <Label htmlFor={id} label={label} supplementalText={supplementalText}>
       <span className="relative">
         <DatePicker
+          id={id}
           {...rest}
           dateFormat="yyyy/MM/dd"
           className="input input-bordered w-36"
@@ -23,11 +23,11 @@ const dateInput = (props: Props) => {
           className="opacity-50 inline-block ml-[-2.5rem] absolute top-1/2 transform -translate-y-1/2 right-2"
         />
       </span>
-    </label>
+    </Label>
   );
 };
 
-export const DateInput = React.memo(dateInput);
+export const DateInput = React.memo(FcDateInput);
 
 type HookProps<T extends Record<string, unknown>> = {
   control: Control<T>;

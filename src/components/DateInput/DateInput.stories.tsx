@@ -12,6 +12,8 @@ type Story = StoryObj<typeof DateInput>;
 
 export const Default: Story = {
   args: {
+    label: '日付',
+    supplementalText: '補足テキスト',
     selected: new Date('2024-02-04'),
   },
 };

@@ -1,19 +1,16 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useId } from 'react';
+import { Label, LabelProps } from '../Label';
 
-type Props = {
-  label: string | JSX.Element;
-  supplementalText?: string;
-} & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+type Props = LabelProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export const MultilineTextbox: React.FC<Props> = (props) => {
   const { label, supplementalText, className: _className, ...rest } = props;
   const className = classNames('textarea textarea-bordered', _className);
+  const id = useId();
   return (
-    <label className="label flex flex-col items-start">
-      <span className="label-text">{label}</span>
-      <textarea className={className} {...rest} />
-      <span className="label-text-alt text-opacity-50">{supplementalText}</span>
-    </label>
+    <Label htmlFor={id} label={label} supplementalText={supplementalText}>
+      <textarea id={id} className={className} {...rest} />
+    </Label>
   );
 };

@@ -17,13 +17,10 @@ test('renders', () => {
     value: 'Task 1',
     className: 'additional-class',
     supplementalText: 'Supplemental text',
-    containerClassName: 'add-container-class',
   });
   const textbox = screen.getByLabelText('Title');
   expect(textbox).toBeInTheDocument();
   expect(textbox).toHaveValue('Task 1');
   expect(textbox).toHaveClass('additional-class', 'input', 'input-bordered');
   expect(screen.getByText('Supplemental text')).toBeInTheDocument();
-  const container = textbox.parentElement;
-  expect(container).toHaveClass('add-container-class');
 });

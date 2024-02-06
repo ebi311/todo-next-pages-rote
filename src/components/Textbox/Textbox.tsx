@@ -6,11 +6,11 @@ import {
   UnpackNestedValue,
   UseFormRegister,
 } from 'react-hook-form';
+import { Label } from '../Label';
 
 type Props<T extends Record<string, unknown>> = {
   label: string;
   supplementalText?: string;
-  containerClassName?: string;
   hookFormProps?: {
     register: UseFormRegister<T>;
     property: FieldPath<T>;
@@ -23,25 +23,14 @@ export const Textbox = <T extends Record<string, unknown> = { '': unknown }>(
   const {
     label,
     className: _className,
-    containerClassName: _containerClassName,
     supplementalText,
     hookFormProps,
     ...rest
   } = props;
   const className = classNames('input', 'input-bordered', _className);
-  const containerClassName = classNames(
-    'flex',
-    'flex-col',
-    'gap-0',
-    'items-start',
-    _containerClassName,
-  );
   const id = useId();
   return (
-    <div className={containerClassName}>
-      <label htmlFor={id} className="label pb-0">
-        <span className="label-text">{label}</span>
-      </label>
+    <Label htmlFor={id} label={label} supplementalText={supplementalText}>
       <input
         id={id}
         type="text"
@@ -49,11 +38,6 @@ export const Textbox = <T extends Record<string, unknown> = { '': unknown }>(
         {...rest}
         {...(hookFormProps && hookFormProps.register(hookFormProps.property))}
       />
-      <p className="label pt-0">
-        <span className="label-text-alt text-opacity-50">
-          {supplementalText}
-        </span>
-      </p>
-    </div>
+    </Label>
   );
 };
