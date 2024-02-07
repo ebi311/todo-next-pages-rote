@@ -1,3 +1,4 @@
+import { Label } from '@/components/Label';
 import { PriorityIcon } from '@/components/PriorityIcon';
 import {
   RadioButtonList,
@@ -29,15 +30,17 @@ const highLabel = (
 
 export const PriorityRadios: React.FC<Props> = ({ control }) => {
   return (
-    <RadioButtonListHook
-      options={[
-        { label: lowLabel, value: 'low' },
-        { label: mediumLabel, value: 'medium' },
-        { label: highLabel, value: 'high' },
-      ]}
-      name="priority"
-      property="priority"
-      control={control}
-    />
+    <Label htmlFor="1" label="優先度">
+      <RadioButtonListHook
+        options={[
+          { label: lowLabel, value: 'low' },
+          { label: mediumLabel, value: 'medium' },
+          { label: highLabel, value: 'high' },
+        ]}
+        name="priority"
+        property="priority"
+        control={control}
+      />
+    </Label>
   );
 };

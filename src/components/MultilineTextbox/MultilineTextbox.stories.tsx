@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { MultilineTextbox } from './MultilineTextbox';
+import { MultilineTextbox, MultilineTextboxHF } from './MultilineTextbox';
+import { useForm } from 'react-hook-form';
 
 export default {
   title: 'components/MultilineTextbox',
@@ -24,4 +25,23 @@ export const AddStyle: Story = {
     value: '値・・・',
     className: 'textarea-primary w-full',
   },
+};
+
+const HF = () => {
+  const { control, watch } = useForm({
+    defaultValues: {
+      body: '内容・・・',
+    },
+  });
+  return (
+    <>
+      <MultilineTextboxHF control={control} property="body" label="内容" />
+      {watch('body')}
+    </>
+  );
+};
+
+export const WithHookForm: Story = {
+  args: {},
+  render: () => <HF />,
 };
