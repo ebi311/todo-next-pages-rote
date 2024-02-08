@@ -16,23 +16,23 @@ const config: Config = {
     },
   },
   plugins: [require('daisyui')],
-  daisyui: {
-    themes: [
-      {
-        cw: {
-          primary: '#F03748',
-          secondary: '#F7AC00',
-          accent: '#22B295',
-          neutral: '#13202F',
-          'base-100': '#FFFFFF',
-          info: '#0099DC',
-          success: '#6DD6C1',
-          warning: '#FFCF60',
-          error: '#FA8591',
-        },
-      },
-    ],
-  },
+  // daisyui: {
+  //   themes: [
+  //     {
+  //       cw: {
+  //         primary: '#F03748',
+  //         secondary: '#F7AC00',
+  //         accent: '#22B295',
+  //         neutral: '#13202F',
+  //         'base-100': '#FFFFFF',
+  //         info: '#0099DC',
+  //         success: '#6DD6C1',
+  //         warning: '#FFCF60',
+  //         error: '#FA8591',
+  //       },
+  //     },
+  //   ],
+  // },
 };
 
 export default config;

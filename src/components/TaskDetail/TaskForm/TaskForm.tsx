@@ -16,7 +16,7 @@ export const TaskForm: React.FC<Props> = ({ defaultValues }) => {
   });
 
   return (
-    <form>
+    <form className="form-control">
       <TitleTextbox register={register} />
       <DeadlineDateInput control={control} />
       <PriorityRadios control={control} />
