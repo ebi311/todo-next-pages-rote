@@ -1,6 +1,6 @@
-import React, { PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
+import React, { PropsWithChildren } from 'react';
 
 type Props = {
   pageTitle: string;

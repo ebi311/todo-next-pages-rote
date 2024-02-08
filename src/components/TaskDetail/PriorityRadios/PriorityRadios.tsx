@@ -1,12 +1,9 @@
 import { Label } from '@/components/Label';
 import { PriorityIcon } from '@/components/PriorityIcon';
-import {
-  RadioButtonList,
-  RadioButtonListHook,
-} from '@/components/RadioButtonList';
-import { Task, TaskPriority } from '@/models/task';
+import { RadioButtonListHook } from '@/components/RadioButtonList';
+import { Task } from '@/models/task';
 import React from 'react';
-import { Control, useForm } from 'react-hook-form';
+import { Control } from 'react-hook-form';
 
 type Props = {
   control: Control<Task>;

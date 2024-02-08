@@ -1,5 +1,5 @@
 import { Task } from '@/models/task';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { TaskRow } from '../TaskRow';
 
 type Props = {

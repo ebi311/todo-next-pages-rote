@@ -1,7 +1,7 @@
 import { render as _render, fireEvent, screen } from '@testing-library/react';
 import { ComponentProps } from 'react';
-import { RadioButtonList, RadioButtonListHook } from './RadioButtonList';
 import { useForm } from 'react-hook-form';
+import { RadioButtonList, RadioButtonListHook } from './RadioButtonList';
 
 const render = (props: ComponentProps<typeof RadioButtonList>) => {
   const { rerender, ...rest } = _render(<RadioButtonList {...props} />);

@@ -1,10 +1,10 @@
+import { Task, TaskStatus } from '@/models/task';
 import React from 'react';
 import { BackLink } from '../BackLink';
 import { DeleteButton } from '../DeleteButton';
-import { SaveButton } from '../SaveButton';
 import { DoneButton } from '../DoneButton';
-import { Task, TaskStatus } from '@/models/task';
 import { ReturnTodoButton } from '../ReturnTodoButton';
+import { SaveButton } from '../SaveButton';
 
 type Props = {
   task: Task;

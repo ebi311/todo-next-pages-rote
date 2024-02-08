@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { PropsWithChildren, useId } from 'react';
+import React, { PropsWithChildren } from 'react';
 
 export type LabelProps = {
   label: string | JSX.Element;

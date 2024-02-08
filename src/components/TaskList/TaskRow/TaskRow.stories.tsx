@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { TaskRow } from './TaskRow';
 import { Task } from '@/models/task';
+import { TaskRow } from './TaskRow';
 
 export default {
   title: 'components/TaskList/TaskRow',

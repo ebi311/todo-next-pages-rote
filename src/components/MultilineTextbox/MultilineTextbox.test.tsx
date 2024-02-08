@@ -1,8 +1,7 @@
 import { render as _render, fireEvent, screen } from '@testing-library/react';
 import { ComponentProps } from 'react';
-import { MultilineTextbox, MultilineTextboxHF } from './MultilineTextbox';
 import { useForm } from 'react-hook-form';
-import { Task } from '@/models/task';
+import { MultilineTextbox, MultilineTextboxHF } from './MultilineTextbox';
 
 const render = (props: ComponentProps<typeof MultilineTextbox>) => {
   const { rerender, ...rest } = _render(<MultilineTextbox {...props} />);

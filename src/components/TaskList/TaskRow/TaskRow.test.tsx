@@ -1,7 +1,7 @@
+import { Task } from '@/models/task';
 import { render as _render, screen } from '@testing-library/react';
 import { ComponentProps } from 'react';
 import { TaskRow } from './TaskRow';
-import { Task } from '@/models/task';
 
 const render = (props: ComponentProps<typeof TaskRow>) => {
   const { rerender, ...rest } = _render(<TaskRow {...props} />);

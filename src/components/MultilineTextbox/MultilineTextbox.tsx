@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { useId } from 'react';
-import { Label, LabelProps } from '../Label';
 import { Control, Path, useController } from 'react-hook-form';
+import { Label, LabelProps } from '../Label';
 
 type Props = LabelProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 

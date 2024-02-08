@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { TaskForm } from './TaskForm';
 import { Task } from '@/models/task';
+import { TaskForm } from './TaskForm';
 
 export default {
   title: 'components/TaskDetail/TaskForm',

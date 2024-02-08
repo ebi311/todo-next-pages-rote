@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import { Textbox } from './Textbox';
-import { useForm } from 'react-hook-form';
 
 export default {
   title: 'components/Textbox',

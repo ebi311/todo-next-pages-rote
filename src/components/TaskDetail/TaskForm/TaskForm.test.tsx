@@ -1,8 +1,8 @@
+import { Task } from '@/models/task';
 import { render as _render, screen } from '@testing-library/react';
 import { ComponentProps } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { TaskForm } from './TaskForm';
-import { Task } from '@/models/task';
-import { useForm, FormProvider } from 'react-hook-form';
 
 const task: Task = {
   id: '1',

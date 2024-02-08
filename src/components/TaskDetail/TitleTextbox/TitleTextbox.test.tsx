@@ -1,8 +1,8 @@
+import { Task } from '@/models/task';
 import { render as _render, fireEvent, screen } from '@testing-library/react';
 import { ComponentProps } from 'react';
-import { TitleTextbox } from './TitleTextbox';
 import { useForm } from 'react-hook-form';
-import { Task } from '@/models/task';
+import { TitleTextbox } from './TitleTextbox';
 
 const FormedTitleTextbox = (
   props: Omit<ComponentProps<typeof TitleTextbox>, 'register'>,

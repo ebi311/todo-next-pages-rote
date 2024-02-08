@@ -1,7 +1,4 @@
-import {
-  MultilineTextbox,
-  MultilineTextboxHF,
-} from '@/components/MultilineTextbox';
+import { MultilineTextboxHF } from '@/components/MultilineTextbox';
 import { Task } from '@/models/task';
 import React from 'react';
 import { Control } from 'react-hook-form';

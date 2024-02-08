@@ -1,9 +1,9 @@
+import type { QueryParams } from '@/pages';
+import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
-import { SearchTaskNameTextbox } from '../SearchTaskNameTextbox';
 import { HighPriorityCheckbox } from '../HighPriorityCheckbox';
 import { IncludeDoneTasks } from '../IncludeDones';
-import { useRouter } from 'next/router';
-import type { QueryParams } from '@/pages';
+import { SearchTaskNameTextbox } from '../SearchTaskNameTextbox';
 
 type Props = {
   searchText: string;

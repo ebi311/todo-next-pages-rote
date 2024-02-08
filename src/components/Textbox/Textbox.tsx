@@ -1,11 +1,6 @@
 import classNames from 'classnames';
 import React, { useId } from 'react';
-import {
-  FieldPath,
-  FieldValue,
-  UnpackNestedValue,
-  UseFormRegister,
-} from 'react-hook-form';
+import { FieldPath, UseFormRegister } from 'react-hook-form';
 import { Label } from '../Label';
 
 type Props<T extends Record<string, unknown>> = {

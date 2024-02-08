@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { DeadlineDateInput } from './DeadlineDateInput';
-import { useForm } from 'react-hook-form';
 import { Task } from '@/models/task';
+import { useForm } from 'react-hook-form';
+import { DeadlineDateInput } from './DeadlineDateInput';
 
 export default {
   title: 'components/TaskDetail/DeadlineDateInput',

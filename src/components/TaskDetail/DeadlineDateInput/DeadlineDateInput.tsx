@@ -1,9 +1,7 @@
-import { DateInput, DateInputHook } from '@/components/DateInput';
+import { DateInputHook } from '@/components/DateInput';
 import { Task } from '@/models/task';
 import React from 'react';
-import DatePicker from 'react-datepicker';
-import { Control, UseFormRegister, useController } from 'react-hook-form';
-import { MdCalendarMonth } from 'react-icons/md';
+import { Control } from 'react-hook-form';
 
 type Props = {
   control: Control<Task>;

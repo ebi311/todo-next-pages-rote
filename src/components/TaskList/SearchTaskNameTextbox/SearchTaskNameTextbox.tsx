@@ -1,6 +1,5 @@
-import type, { QueryParams } from '@/pages';
-import { set } from 'mockdate';
-import React, { ChangeEvent, useCallback, useRef, useState } from 'react';
+import { QueryParams } from '@/pages';
+import React, { ChangeEvent, useCallback, useRef } from 'react';
 
 type Props = {
   defaultSearchTitle: string;

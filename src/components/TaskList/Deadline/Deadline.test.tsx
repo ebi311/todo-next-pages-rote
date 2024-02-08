@@ -1,7 +1,7 @@
 import { render as _render, screen } from '@testing-library/react';
+import MockDate from 'mockdate';
 import { ComponentProps } from 'react';
 import { Deadline } from './Deadline';
-import MockDate from 'mockdate';
 
 MockDate.set('2024-01-01T00:00:00+09:00');
 

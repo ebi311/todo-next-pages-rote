@@ -1,8 +1,8 @@
+import { Task } from '@/models/task';
 import { render as _render, fireEvent, screen } from '@testing-library/react';
 import { ComponentProps } from 'react';
-import { PriorityRadios } from './PriorityRadios';
 import { useForm } from 'react-hook-form';
-import { Task } from '@/models/task';
+import { PriorityRadios } from './PriorityRadios';
 
 type Props = Omit<ComponentProps<typeof PriorityRadios>, 'control'>;
 
