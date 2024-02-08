@@ -19,22 +19,30 @@ const className = classNames(
   'gap-y-2',
   'border-b',
   'border-base-300',
-  'pb-2',
   'm-2',
+  'rounded',
+  'p-2',
+  'hover:bg-primary',
+  'hover:bg-opacity-10',
 );
 
 const taskRow: React.FC<Props> = ({ task }) => {
   return (
-    <li className={className} role="row" aria-label="task-list-row">
-      <div role="cell" className="row-span-2 flex items-center content-center">
-        <TaskStatusCheckbox taskStatus={task.status} />
-      </div>
-      <PriorityIcon priority={task.priority} />
-      <TaskTitle taskTitle={task.title} />
-      <Deadline deadline={task.deadline} />
-      <div role="cell" className="col-span-3">
-        <TaskBody taskBody={task.body} />
-      </div>
+    <li role="row" aria-label="task-list-row">
+      <a className={className} href={`/tasks/${task.id}`}>
+        <div
+          role="cell"
+          className="row-span-2 flex items-center content-center"
+        >
+          <TaskStatusCheckbox taskStatus={task.status} />
+        </div>
+        <PriorityIcon priority={task.priority} />
+        <TaskTitle taskTitle={task.title} />
+        <Deadline deadline={task.deadline} />
+        <div role="cell" className="col-span-3">
+          <TaskBody taskBody={task.body} />
+        </div>
+      </a>
     </li>
   );
 };

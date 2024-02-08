@@ -44,3 +44,5 @@ proseWrap: preserve # markdown などの時に、改行するかどうか
 htmlWhitespaceSensitivity: css # HTML 内の空白文字の取り扱い
 vueIndentScriptAndStyle: false # Vue.js テンプレートの <script>, <style> タグ内にインデントを含むかどうか
 embeddedLanguageFormatting: auto # Markdown のコードブロックなど、別なコードの埋め込みを判断して対象とするか
+plugins:
+  - prettier-plugin-organize-imports

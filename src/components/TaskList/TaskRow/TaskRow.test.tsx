@@ -25,6 +25,7 @@ test('renders', () => {
   render({
     task,
   });
+  expect(screen.getByRole('link')).toHaveAttribute('href', '/tasks/001');
   expect(screen.getByText('タスクタイトル')).toBeInTheDocument();
   expect(screen.getByRole('checkbox')).toBeInTheDocument();
   expect(screen.getByText('2024/01/31')).toBeInTheDocument();

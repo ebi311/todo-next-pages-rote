@@ -20,8 +20,6 @@ const jsonReviver = (_key: string, value: unknown) => {
   return dayjs(value).toDate();
 };
 
-const loadTasks = async () => {};
-
 export class TaskList {
   private tasks: Task[] = [];
   private static instance: TaskList;
@@ -76,5 +74,27 @@ export class TaskList {
     return this.filterPriority(conditions.highPriorityOnly)
       .filterStatus(conditions.includeDone)
       .filterTitle(conditions.partialTitle).tasks;
+  }
+
+  public getTask(id: string) {
+    const task = this.tasks.find((task) => task.id === id);
+    if (!task) return undefined;
+    // オブジェクトのコピーを返す
+    return { ...task };
+  }
+
+  public async modifyTask(id: string, task: Task) {
+    const existTask = this.getTask(id);
+    if (!existTask) throw new Error('Task not found');
+    const newTask = { ...existTask, ...task, id };
+    const index = this.tasks.findIndex((task) => task.id === id);
+    this.tasks.splice(index, 1, newTask);
+    // JSON ファイルに書き出す
+    await this.save();
+  }
+
+  private async save() {
+    const data = JSON.stringify({ tasks: this.tasks }, null, 2);
+    await fs.writeFile(path.join(process.cwd(), 'data.json'), data);
   }
 }
