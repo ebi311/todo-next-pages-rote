@@ -1,15 +1,11 @@
 import { Task, TaskSchema } from '@/models/task';
+import { randomUUID } from 'crypto';
 import dayjs from 'dayjs';
 import fs from 'fs/promises';
+import Knex from 'knex';
 import path from 'path';
 
-export const copyInitFile = async () => {
-  const initFilePath = path.join(process.cwd(), '_data.json');
-  const distFilePath = path.join(process.cwd(), 'data.json');
-  await fs.copyFile(initFilePath, distFilePath);
-};
-
-const jsonReviver = (_key: string, value: unknown) => {
+export const jsonReviver = (_key: string, value: unknown) => {
   // 文字列で、ISO 8601 形式の日付文字列の場合、Date オブジェクトに変換する
   if (typeof value !== 'string') {
     return value;
@@ -20,81 +16,121 @@ const jsonReviver = (_key: string, value: unknown) => {
   return dayjs(value).toDate();
 };
 
+let taskList: TaskList;
+const dbPath = `${process.cwd()}/_data.sqlite`;
 export class TaskList {
-  private tasks: Task[] = [];
-  private static instance: TaskList;
+  public id: string;
+  private knex: Knex.Knex;
 
   private constructor(task?: Task[]) {
-    this.tasks = task || [];
+    this.id = randomUUID();
+    this.knex = Knex({
+      client: 'sqlite3',
+      connection: {
+        filename: dbPath,
+        options: {
+          nativeBinding: '/path/to/better_sqlite3.node',
+        },
+      },
+    });
   }
 
   public static async getInstance() {
-    if (TaskList.instance) return TaskList.instance;
-    TaskList.instance = new TaskList();
-    await TaskList.instance.load();
-    return TaskList.instance;
+    if (taskList) return taskList;
+    console.log('create instance');
+    taskList = new TaskList();
+    return taskList;
   }
 
-  async load() {
-    const data = await fs.readFile(path.join(process.cwd(), 'data.json'));
-    const sourceData = JSON.parse(data.toString(), jsonReviver);
+  public async testInitialize() {
+    const data = await fs.readFile(path.join(process.cwd(), '_data.json'));
+    const sourceData = JSON.parse(data.toString());
     if (!Array.isArray(sourceData.tasks)) {
       throw new Error('No tasks found');
     }
-    this.tasks = (sourceData.tasks as Task[]).map((task: unknown) =>
+    const tasks = (sourceData.tasks as Task[]).map((task: unknown) =>
       TaskSchema.parse(task),
     );
+    await this.knex.schema.createTableIfNotExists('tasks', (table) => {
+      table.string('id').primary();
+      table.string('title');
+      table.string('body');
+      table.string('status');
+      table.string('priority');
+      table.timestamp('deadline');
+    });
+    return this.save(tasks);
   }
 
-  public filterTitle(partialTitle?: string) {
-    if (!partialTitle) return new TaskList(this.tasks);
-    const tasks = this.tasks.filter((task) =>
-      task.title.includes(partialTitle),
-    );
-    return new TaskList(tasks);
+  public filterTitle(
+    queryBuilder: Knex.Knex.QueryBuilder<Task>,
+    partialTitle?: string,
+  ) {
+    if (!partialTitle) return queryBuilder;
+    return queryBuilder.where('title', 'like', `%${partialTitle}%`);
   }
 
-  public filterPriority(highPriorityOnly?: boolean) {
-    if (!highPriorityOnly) return new TaskList(this.tasks);
-    const tasks = this.tasks.filter((task) => task.priority === 'high');
-    return new TaskList(tasks);
+  private filterPriority(
+    queryBuilder: Knex.Knex.QueryBuilder<Task>,
+    highPriorityOnly?: boolean,
+  ) {
+    if (!highPriorityOnly) return queryBuilder;
+    return queryBuilder.where('priority', 'high');
   }
 
-  public filterStatus(includeDone?: boolean) {
-    if (includeDone === true) return new TaskList(this.tasks);
-    const tasks = this.tasks.filter((task) => task.status !== 'done');
-    return new TaskList(tasks);
+  private filterStatus(
+    query: Knex.Knex.QueryBuilder<Task>,
+    includeDone?: boolean,
+  ) {
+    if (includeDone === true) return query;
+    return query.where('status', '!=', 'done');
   }
 
-  public queryTasks(conditions: {
+  public async queryTasks(conditions: {
     partialTitle?: string;
     highPriorityOnly?: boolean;
     includeDone?: boolean;
   }) {
-    return this.filterPriority(conditions.highPriorityOnly)
-      .filterStatus(conditions.includeDone)
-      .filterTitle(conditions.partialTitle).tasks;
+    let queryBuilder = this.knex<Task>('tasks');
+    queryBuilder = this.filterStatus(queryBuilder, conditions.includeDone);
+    queryBuilder = this.filterPriority(
+      queryBuilder,
+      conditions.highPriorityOnly,
+    );
+    queryBuilder = this.filterTitle(queryBuilder, conditions.partialTitle);
+    const result = await queryBuilder.select('*');
+    return result;
   }
 
-  public getTask(id: string) {
-    const task = this.tasks.find((task) => task.id === id);
+  public async getTask(id: string) {
+    const task = await this.knex<Task>('tasks').where('id', id).first();
     if (!task) return undefined;
     // オブジェクトのコピーを返す
-    return { ...task };
+    const parsedTask = TaskSchema.parse(task);
+    return parsedTask;
   }
 
   public async modifyTask(id: string, task: Task) {
-    const existTask = this.getTask(id);
-    if (!existTask) throw new Error('Task not found');
-    const newTask = { ...existTask, ...task, id };
-    const index = this.tasks.findIndex((task) => task.id === id);
-    this.tasks.splice(index, 1, newTask);
-    // JSON ファイルに書き出す
-    await this.save();
+    const newTask: Partial<Omit<Task, 'deadline'>> & { deadline?: string } = {
+      title: task.title,
+      body: task.body,
+      status: task.status,
+      priority: task.priority,
+    };
+    if (task.deadline) {
+      newTask.deadline = task.deadline.toISOString();
+    }
+    await this.knex('tasks').where('id', id).update(newTask);
   }
 
-  private async save() {
-    const data = JSON.stringify({ tasks: this.tasks }, null, 2);
-    await fs.writeFile(path.join(process.cwd(), 'data.json'), data);
+  private async save(taskList: Task[]) {
+    const _taskList = taskList.map((task) => {
+      return {
+        ...task,
+        deadline: task.deadline?.toISOString(),
+      };
+    });
+    await this.knex('tasks').delete();
+    await this.knex('tasks').insert(_taskList);
   }
 }

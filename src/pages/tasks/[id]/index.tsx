@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<
     return { notFound: true };
   }
   const taskList = await TaskList.getInstance();
-  const task = taskList.getTask(params.id);
+  const task = await taskList.getTask(params.id);
   if (!task) {
     return { notFound: true };
   }
