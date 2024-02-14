@@ -1,4 +1,5 @@
 import { Task } from '@/models/task';
+import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { MdOutbox } from 'react-icons/md';
@@ -36,12 +37,14 @@ const upsert = {
 
 export const SaveButton: React.FC<Props> = ({ newTask = 'modifiedTask' }) => {
   const { getValues, trigger } = useFormContext<Task>();
+  const router = useRouter();
   const handleClick = useCallback(async () => {
     const isValid = await trigger();
     if (!isValid) return;
     const data = getValues();
     await upsert[newTask](data);
-  }, [getValues, newTask, trigger]);
+    router.push('/');
+  }, [getValues, newTask, router, trigger]);
 
   return (
     <button

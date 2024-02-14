@@ -1,5 +1,6 @@
 import { Layout } from '@/components/Layout';
 import { Conditions } from '@/components/TaskList/Conditions';
+import { NewTaskLink } from '@/components/TaskList/NewTaskLink';
 import { TaskList } from '@/components/TaskList/TaskList';
 import { TaskList as TaskListClass } from '@/controllers/taskController';
 import { Task } from '@/models/task';
@@ -24,11 +25,14 @@ type Props = {
 const Page: NextPage<Props> = ({ tasks, conditions }) => {
   return (
     <Layout pageTitle="タスク一覧">
-      <Conditions
-        highPriority={conditions.highPriorityOnly}
-        includeDone={conditions.includeDone}
-        searchText={conditions.partialTitle}
-      />
+      <div className="flex justify-between items-center">
+        <Conditions
+          highPriority={conditions.highPriorityOnly}
+          includeDone={conditions.includeDone}
+          searchText={conditions.partialTitle}
+        />
+        <NewTaskLink />
+      </div>
       <TaskList tasks={tasks} />
     </Layout>
   );

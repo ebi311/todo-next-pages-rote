@@ -3,7 +3,7 @@ import { ComponentProps } from 'react';
 import { NewTaskLink } from './NewTaskLink';
 
 const render = (props: ComponentProps<typeof NewTaskLink>) => {
-  const {rerender, ...rest} = _render(<NewTaskLink {...props} />);
+  const { rerender, ...rest } = _render(<NewTaskLink {...props} />);
   return {
     ...rest,
     rerender: (newProps: Partial<typeof props>) =>
@@ -13,5 +13,6 @@ const render = (props: ComponentProps<typeof NewTaskLink>) => {
 
 test('renders', () => {
   render({});
-  expect(screen.getByTestId('NewTaskLink-container')).toBeInTheDocument();
+  const link = screen.getByRole('button', { name: 'new-task' });
+  expect(link).toHaveAttribute('href', '/tasks');
 });

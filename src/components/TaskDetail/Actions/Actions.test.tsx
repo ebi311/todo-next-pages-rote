@@ -3,6 +3,10 @@ import { render as _render, screen } from '@testing-library/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Actions } from './Actions';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({ push: jest.fn() }),
+}));
+
 const task: Task = {
   id: '123',
   title: 'title',

@@ -63,3 +63,4 @@ src/stories/assets/youtube.svg
 stories/
 
 data.json
+_data.sqlite
