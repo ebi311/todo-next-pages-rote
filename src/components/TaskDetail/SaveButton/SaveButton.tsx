@@ -3,24 +3,45 @@ import React, { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { MdOutbox } from 'react-icons/md';
 
-type Props = {};
+type Props = {
+  newTask?: 'newTask' | 'modifiedTask';
+};
 
-export const SaveButton: React.FC<Props> = (props) => {
+const updateTask = (data: Task) => {
+  const urlPath = `/api/tasks/${data.id}`;
+  return fetch(urlPath, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+const createTask = (data: Task) => {
+  const urlPath = '/api/tasks';
+  return fetch(urlPath, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+const upsert = {
+  newTask: createTask,
+  modifiedTask: updateTask,
+};
+
+export const SaveButton: React.FC<Props> = ({ newTask = 'modifiedTask' }) => {
   const { getValues, trigger } = useFormContext<Task>();
   const handleClick = useCallback(async () => {
     const isValid = await trigger();
     if (!isValid) return;
     const data = getValues();
-    const id = data.id;
-    const urlPath = `/api/tasks/${id}`;
-    await fetch(urlPath, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-  }, [getValues, trigger]);
+    await upsert[newTask](data);
+  }, [getValues, newTask, trigger]);
 
   return (
     <button

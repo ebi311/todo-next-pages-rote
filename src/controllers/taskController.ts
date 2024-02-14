@@ -123,6 +123,16 @@ export class TaskList {
     await this.knex('tasks').where('id', id).update(newTask);
   }
 
+  public async createTask(task: Task) {
+    const newTask = {
+      ...task,
+      id: randomUUID(),
+      deadline: task.deadline?.toISOString(),
+    };
+    console.log(newTask);
+    await this.knex('tasks').insert(newTask);
+  }
+
   private async save(taskList: Task[]) {
     const _taskList = taskList.map((task) => {
       return {

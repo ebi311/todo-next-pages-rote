@@ -23,7 +23,6 @@ const Page: NextPage<Props> = ({ task }) => {
         <Actions task={task} />
         <TaskForm />
       </FormProvider>
-      <pre>{JSON.stringify(watch(), null, 2)}</pre>
     </Layout>
   );
 };
