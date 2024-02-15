@@ -11,16 +11,23 @@ const render = (props: ComponentProps<typeof Textbox>) => {
   };
 };
 
+const props: ComponentProps<typeof Textbox> = {
+  label: 'Title',
+  value: 'Task 1',
+  className: 'additional-class',
+  supplementalText: 'Supplemental text',
+};
+
 test('renders', () => {
-  render({
-    label: 'Title',
-    value: 'Task 1',
-    className: 'additional-class',
-    supplementalText: 'Supplemental text',
-  });
+  const { rerender } = render(props);
   const textbox = screen.getByLabelText('Title');
   expect(textbox).toBeInTheDocument();
   expect(textbox).toHaveValue('Task 1');
   expect(textbox).toHaveClass('additional-class', 'input', 'input-bordered');
-  expect(screen.getByText('Supplemental text')).toBeInTheDocument();
+  const supplementalText = screen.getByText('Supplemental text');
+  expect(supplementalText).toBeInTheDocument();
+  // error の表示
+  rerender({ ...props, hasError: true });
+  expect(textbox).toHaveClass('input-error');
+  expect(supplementalText).toHaveClass('text-error');
 });

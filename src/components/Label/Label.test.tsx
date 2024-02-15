@@ -24,6 +24,8 @@ test('render text label', () => {
   expect(supplementalText).toHaveClass('label-text-alt');
   const input = screen.getByRole('textbox');
   expect(input).toBeInTheDocument();
+
+  // error の表示
 });
 
 test('render element label', () => {

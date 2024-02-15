@@ -10,6 +10,7 @@ type Props<T extends Record<string, unknown>> = {
     register: UseFormRegister<T>;
     property: FieldPath<T>;
   };
+  hasError?: boolean;
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
 export const Textbox = <T extends Record<string, unknown> = { '': unknown }>(
@@ -20,12 +21,20 @@ export const Textbox = <T extends Record<string, unknown> = { '': unknown }>(
     className: _className,
     supplementalText,
     hookFormProps,
+    hasError = false,
     ...rest
   } = props;
-  const className = classNames('input', 'input-bordered', _className);
+  const className = classNames('input', 'input-bordered', _className, {
+    'input-error': hasError,
+  });
   const id = useId();
   return (
-    <Label htmlFor={id} label={label} supplementalText={supplementalText}>
+    <Label
+      htmlFor={id}
+      label={label}
+      supplementalText={supplementalText}
+      hasError={hasError}
+    >
       <input
         id={id}
         type="text"

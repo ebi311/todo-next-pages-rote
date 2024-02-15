@@ -16,3 +16,11 @@ export const Default: Story = {
     supplementalText: '補足テキスト',
   },
 };
+
+export const HasError: Story = {
+  args: {
+    label: 'タイトル',
+    supplementalText: '補足テキスト',
+    hasError: true,
+  },
+};

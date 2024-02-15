@@ -17,3 +17,12 @@ export const Default: Story = {
     children: <input className="input input-bordered" />,
   },
 };
+
+export const HasError: Story = {
+  args: {
+    label: 'ラベル',
+    supplementalText: 'エラーメッセージ',
+    children: <input className="input input-bordered" />,
+    hasError: true,
+  },
+};
