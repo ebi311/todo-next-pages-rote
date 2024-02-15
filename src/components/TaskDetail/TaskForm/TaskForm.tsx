@@ -9,11 +9,11 @@ import { TitleTextbox } from '../TitleTextbox';
 type Props = {};
 
 export const TaskForm: React.FC<Props> = () => {
-  const { control, register } = useFormContext<Task>();
+  const { control, register, formState } = useFormContext<Task>();
 
   return (
     <form className="form-control">
-      <TitleTextbox register={register} />
+      <TitleTextbox register={register} hasError={!!formState.errors.title} />
       <DeadlineDateInput control={control} />
       <PriorityRadios control={control} />
       <BodyTextbox control={control} />

@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Task } from '@/models/task';
+import { Task, TaskSchema } from '@/models/task';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormProvider, useForm } from 'react-hook-form';
 import { TaskForm } from './TaskForm';
 
 export default {
@@ -21,7 +23,20 @@ const task: Task = {
 };
 
 export const Default: Story = {
-  args: {
-    defaultValues: task,
+  render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const formMethods = useForm({
+      defaultValues: task,
+      mode: 'onBlur',
+      resolver: zodResolver(TaskSchema),
+    });
+    return (
+      <FormProvider {...formMethods}>
+        <TaskForm />
+        <pre>{JSON.stringify(formMethods.watch(), null, 2)}</pre>
+        {formMethods.formState.errors.title?.message}
+        {formMethods.formState.errors.body?.message}
+      </FormProvider>
+    );
   },
 };

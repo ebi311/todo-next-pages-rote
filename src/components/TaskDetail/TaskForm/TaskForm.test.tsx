@@ -1,4 +1,5 @@
-import { Task } from '@/models/task';
+import { Task, TaskSchema } from '@/models/task';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { render as _render, screen } from '@testing-library/react';
 import { ComponentProps } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -16,6 +17,8 @@ const task: Task = {
 const HF = () => {
   const formMethods = useForm({
     defaultValues: task,
+    mode: 'onBlur',
+    resolver: zodResolver(TaskSchema),
   });
   return (
     <FormProvider {...formMethods}>
