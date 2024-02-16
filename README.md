@@ -67,5 +67,4 @@ $ npx hygen component new
 - フォーム処理については、`react-hook-form` を採用しています。これにより、フォームのバリデーションや、フォームの値の管理が簡単になります。
 - フォームのバリデーションとして、`zod` を利用してスキーマを作成(`src/models/task.ts`)し、`react-hook-form` の `resolver` に渡しています。
   - これにより、バリデーションを UI から分離し、モデルの構成の一部とすることで、それぞれの役割を明確にすることができます。
-- ページ固有のコンポーネントのフォームコントロール(`src/components/TaskDetail/*)でのコントロールは、`react-hook-form` の
 - 汎用的に使用できる、テキストボックス(`src/components/Textbox)、複数行テキストボックス(`src/components/MultilineTextbox`)は、それぞれ`react-hook-form`に対応したものとなっています。それぞれ記述が異なっておりますが、復数のパターンが有ると思っていただければよいです。どちらがいいというのはないですので、チームで統一できればいいです。
